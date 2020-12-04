@@ -20,7 +20,7 @@ df_A.head(2)#first 2 rows
 df_A.tail(2)#last 2 rows
 
 #Merging
-
+#merge(left, right, how='inner', on=None, left_on=None, right_on=None, left_index=False, right_index=False, sort=False, suffixes=('_x', '_y'), copy=True, indicator=False, validate=None)
 tb_B1 = {'Day':[11,21,31,41,51,61],'Visitors':[1100,1102,11003,1300,1400,1100],'Bounce_Rate':[120,110,130,120,114,134]}
 
 df_B1 = pd.DataFrame(tb_B1,index=[10,11,13,14,15,16])#all columns as common
@@ -86,3 +86,4 @@ print(concat)
 
 country = pd.read_csv(r'D:\GITHUB\PANDAS\Pandas\country_code.csv',index_col=0)#no index
 country.to_html('D:\GITHUB\PANDAS\Pandas\country_code.html')
+
