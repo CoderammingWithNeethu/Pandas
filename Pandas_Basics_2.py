@@ -80,3 +80,25 @@ df1_test.loc[:2,'Period'].replace(2222.2, np.nan,inplace=True)#convert particula
 df1_test.loc[10:15,'Period'].replace({2222.2: None},inplace=True)#convert particular dataset to None
 df1_test.isnull().sum()#gives count of Nan values in each column
 
+
+#insert a new column
+df1.insert(2,'new_column','')#new column at index 2 with blank values
+#drop the column
+df1=df1.drop(columns=['new_column'])
+df1.columns
+
+#convert dataframe to csv
+df1.to_csv(r'D:\GITHUB\PANDAS\Pandas\df1_test.csv',index = False)
+
+#sorting on the column
+df1.sort_values(['Revised'],ascending=[1])
+df1.sort_values(['Revised','Previously published'],ascending=[1,0])
+
+df1.describe()#statistice information column wise in a dataframe 
+
+#AGGREGATE FUNCTION
+df1['count']=1
+df1.groupby(['Revised','Previously published']).count()['count']
+df1.groupby(['Revised','Previously published']).count()['count'].reset_index()#normalised form
+
+#EXPLORATORY DATA ANALYSIS
