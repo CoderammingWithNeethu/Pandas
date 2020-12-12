@@ -127,3 +127,29 @@ numerical_data =df1.select_dtypes(exclude=[object])
 numerical_data.shape
 corr_matrix = numerical_data.corr()
 
+
+#Dealing with missing values
+df_cars = pd.read_csv('CARS.csv',sep=",")
+df_cars.isnull().sum()#returns true false df
+df_cars.isna().sum()
+df_cars_null_val = df_cars[df_cars.isna().any(axis=1)]#rows with NaN values ; 
+'''
+2 Approach to fill missing values
+1. Fill the missing values by mean/median -- Numerical Variable
+2. Fill the missing values with the class which has the maximum count -- Categorical Variable
+'''
+df_cars2 = df_cars.copy() #object references different
+df_cars.describe()
+#FOR NUMERIC VARIABLES
+df_cars['Cylinders'].mean()
+df_cars['Cylinders'].median()
+#'Cylinder is numerical column containing Nan ; check mean and median - lower value(here) is mean-hence fill missing value by mean
+df_cars2['Cylinders'].fillna(df_cars2['Cylinders'].mean(),inplace=True)#can have median()
+df_cars2.isnull().sum()
+#FOR CATEGORICAL VARIABLES
+#most frequently occouring category
+df_cars2['Origin'].value_counts()#say 'Origin' column has null values (here) - Asia most freq occured
+df_cars2['Origin'].fillna(df_cars2['Origin'].value_counts().index[0],inplace=True)
+
+#alternative using apply and lambda function
+df_cars2=df_cars2.apply(lambda x:x.fillna(x.mean()) if x.dtype == 'float' else x.fillna(x.counts().index[0]))
