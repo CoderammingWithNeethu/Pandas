@@ -102,3 +102,28 @@ df1.groupby(['Revised','Previously published']).count()['count']
 df1.groupby(['Revised','Previously published']).count()['count'].reset_index()#normalised form
 
 #EXPLORATORY DATA ANALYSIS
+#Cross Tabulation
+pd.crosstab(index=df1['Revised'],columns='count',dropna=True)#similar to group by
+
+pd.crosstab(index=df1['Revised'],columns=df1['Previously published'],dropna=True)
+
+#2-Way table : joint probability; is likelihood of two independent event happening at the same time
+pd.crosstab(index=df1['Revised'],columns=df1['Previously published'],normalize = True ,dropna=True)
+pd.crosstab(index=df1['Revised'].head(5),columns=df1['Previously published'].head(5),normalize = True ,dropna=True)
+
+#2-way table : marginal probability; probability of occurrence of single event
+pd.crosstab(index=df1['Revised'].head(5),columns=df1['Previously published'].head(5),margins = True, normalize = True ,dropna=True)
+
+#2-way table : conditional probability ; probaility of event A given that another event B has already occured
+#row wise; rows wise sum =1
+pd.crosstab(index=df1['Revised'].head(5),columns=df1['Previously published'].head(5),normalize = 'index',margins = True ,dropna=True)
+#column wise -- column wise sum = 1 
+pd.crosstab(index=df1['Revised'].head(5),columns=df1['Previously published'].head(5),normalize = 'columns',margins = True ,dropna=True)
+
+
+#CORRELATION : Pearson's correlation:strength of association between 2 variables ; 
+#excluding null and categorial variables 
+numerical_data =df1.select_dtypes(exclude=[object])
+numerical_data.shape
+corr_matrix = numerical_data.corr()
+
